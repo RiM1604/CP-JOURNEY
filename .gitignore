@@ -1,0 +1,9 @@
+main
+
+# generate_checksum.py
+# verify_checksum.py
+# .vscode/
+Temp/
+__pycache__/
+.venv/
+.obsidian/
