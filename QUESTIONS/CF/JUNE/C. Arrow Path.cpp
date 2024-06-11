@@ -109,8 +109,8 @@ void dfs(pair<int, int> node)
 void solve()
 {
     cin >> n;
-    grid.resize(3, vector<char>(n + 1));
-    visited.resize(3, vi(n + 1, 0));
+    grid = vector<vector<char>>(3, vector<char>(n + 1));
+    visited = vvi(3, vi(n + 1, 0));
     for (int i = 1; i <= 2; i++)
     {
         for (int j = 1; i <= n; j++)
