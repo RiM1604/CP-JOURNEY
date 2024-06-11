@@ -5,7 +5,7 @@
 // Author: RiM1604
 // QUESTION LINK:
 // Rating: 1300 or Easy
-// Description:
+// Description: CF problem
 // Solved: Yes
 // Learning: Should have observed that even parity only have the choice whereas odd parity always shift according to the cell direction.
 
