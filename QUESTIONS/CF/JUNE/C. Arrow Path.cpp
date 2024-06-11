@@ -1,13 +1,13 @@
 // Date: 10-06-2024
-// Start Time: 08:55:40
-// End Time  : 09:54:48
-// Time Taken: 59 minutes
-// Author: Shashwat Kumar
-// QUESTION LINK: https://codeforces.com/problemset/problem/1948/C
-// Rating: 1300
-// Description: Find a path between 2 cells
+// Start Time: 23:19:31
+// End Time  : 23:42:49
+// Time Taken: 23 minutes
+// Author: RiM1604
+// QUESTION LINK:
+// Rating: 1300 or Easy
+// Description:
 // Solved: Yes
-// Learning: Identify that the different nodes have different types of edges possible in the grid
+// Learning: Should have observed that even parity only have the choice whereas odd parity always shift according to the cell direction.
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>
@@ -31,13 +31,13 @@ typedef vector<pii> vpii;
 
 /**************************************************Global Variables*************************************************/
 const ll MAXM = 1e5;
-const int mod = 1e9 + 7;
-const int INF = 1e9 + 5;
-const long long INFF = 1000000000000000005LL;
-const double EPS = 1e-9;
-const double PI = acos(-1);
+int mod = 1e9 + 7;
+int INF = 1e9 + 5;
+long long INFF = 1000000000000000005LL;
+double EPS = 1e-9;
+double PI = acos(-1);
 vector<long> factors[MAXM + 5];
-vpii dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 /**************************************************Utility Functions***********************************************/
@@ -67,68 +67,69 @@ int bin_pow(int base, int pow)
     return ans;
 }
 /***************************************************Main Function**************************************************/
-
-// odd cell: those cells which have the sum of their coordintes as odd no
+vector<vector<char>> grid;
+vvi visited;
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
 int n;
-int vis[2][2 * MAXM + 5];
-bool check(int x, int y)
+int check(int i, int j)
 {
-    return (x >= 0 && x < 2 && y >= 0 && y < n);
+    if (i > 0 && i <= 2 && j > 0 && j <= n)
+    {
+        return 1;
+    }
+    return 0;
 }
 
-bool dfs(int x, int y, vector<string> &v, int parity)
+void dfs(pair<int, int> node)
 {
-    vis[x][y] = 1;
-    debug(x, y, parity);
-    if (x == 1 && y == n - 1)
-        return true;
-    // the point to note is that every even node has 4 options to go and odd even node has only one option to go that is the character in the grid
-    bool ans = false;
-    if (parity % 2 == 0)
+    visited[node.first][node.second] = 1;
+    for (int k = 0; k < 4; k++)
     {
-        for (int i = 0; i < 4; i++)
+        if (check(node.first + dx[k], node.second + dy[k]))
         {
-            if (check(x + dir[i].first, y + dir[i].second))
+            if (!visited[node.first + dx[k]][node.second + dy[k]])
             {
-                if (!vis[x + dir[i].first][y + dir[i].second])
-                    ans |= dfs(x + dir[i].first, y + dir[i].second, v, parity ^ 3);
-                if (ans == true)
-                    return true;
+                int child_x = node.first + dx[k];
+                int child_y = node.second + dy[k];
+                visited[child_x][child_y] = 1;
+                if (grid[child_x][child_y] == '>')
+                {
+                    dfs({child_x, child_y + 1});
+                }
+                else if (grid[child_x][child_y] == '<')
+                {
+                    dfs({child_x, child_y - 1});
+                }
             }
         }
     }
-    else
-    {
-        // go right
-        if (v[x][y] == '>')
-            ans |= dfs(x, y + 1, v, parity ^ 3);
-        else
-            ans = false;
-    }
-    return ans;
 }
 
 void solve()
 {
-    memset(vis, 0, sizeof(vis));
     cin >> n;
-    vector<string> v(2);
-    for (int i = 0; i < 2; i++)
+    grid.resize(3, vector<char>(n + 1));
+    visited.resize(3, vi(n + 1, 0));
+    for (int i = 1; i <= 2; i++)
     {
-        cin >> v[i];
+        for (int j = 1; i <= n; j++)
+        {
+            char c;
+            cin >> c;
+            grid[i][j] = c;
+        }
     }
-    // now call dfs
-    // cout << dfs(0, 0, v, 2) << endl;
-    if (dfs(0, 0, v, 2))
+    pair<int, int> st = {1, 1};
+    dfs(st);
+    if (visited[2][n])
+    {
         cout << "YES" << endl;
+    }
     else
+    {
         cout << "NO" << endl;
-    // for (int i = 0; i < 2; i++)
-    // {
-    //     for (int j = 0; j < n; j++)
-    //         cout << vis[i][j] << " ";
-    //     cout << endl;
-    // }
+    }
 }
 
 signed main()
@@ -139,7 +140,7 @@ signed main()
     std::cout.tie(NULL);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
 #ifdef LOCAL
@@ -153,28 +154,3 @@ signed main()
     cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n";
     return 0;
 }
-
-/*
-4
-4
->><<
->>><
-2
-><
-><
-4
->>><
->><<
-6
->><<><
-><>>><
-
-Case #1
-1
-Case #2
-1
-Case #3
-0
-Case #4
-1
-*/
