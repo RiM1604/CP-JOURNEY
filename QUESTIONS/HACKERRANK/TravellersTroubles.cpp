@@ -5,7 +5,7 @@
 // Author: RiM1604
 // QUESTION LINK: https://www.hackerrank.com/contests/goc-cdc-series-27/challenges/travellers-troubles
 // Rating: Medium
-// Description: Travellers Troubles to find shortest path between x and y if one edge has its wt set to and bidirectional
+// Description: Travellers Troubles to find shortest path between x and y if one edge has its wt set to zero and made bidirectional
 // Solved: Yes
 // Learning: If in a DG a shortest path exists in forward direction then the same path is the shortest for the reversed graph in the opposite direction, Idea here was to find the shortest distance to vertex y from i using reverse graph and doing dijkstra on y.
 
@@ -221,6 +221,6 @@ signed main()
     }
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-    // cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n";
+    cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n";
     return 0;
 }
