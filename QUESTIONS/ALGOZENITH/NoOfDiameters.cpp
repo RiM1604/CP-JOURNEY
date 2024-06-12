@@ -1,13 +1,13 @@
 // Date: 12-06-2024
-// Start Time: 16:39:27
-// End Time  : 17:03:01
-// Time Taken: 23 minutes
+// Start Time: 18:02:04
+// End Time  : 18:41:54
+// Time Taken: 39 minutes
 // Author: RiM1604
 // QUESTION LINK: In PC
 // Rating: Easy
-// Description: Find Center of Tree
+// Description: Finding the no of diameters in case of single center and two centers
 // Solved: Yes
-// Learning: You need to find path to get the center.
+// Learning: Keep track of how many nodes at distance len/2 in subtree[] using dfs. Took time to debug the code and dont be too scared to write the total code sometimes.
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>
@@ -70,7 +70,7 @@ int bin_pow(int base, int pow)
 }
 /***************************************************Main Function**************************************************/
 
-void bfs(int st, vi &dist, vvi &g, vi &parent)
+void bfs(int st, vi &dist, vvi &g, vi &par)
 {
 
     queue<int> q;
@@ -85,13 +85,29 @@ void bfs(int st, vi &dist, vvi &g, vi &parent)
             if (dist[v] > dist[pos] + 1)
             {
                 dist[v] = dist[pos] + 1;
-                parent[v] = pos;
+                par[v] = pos;
                 q.push(v);
             }
         }
     }
 }
 
+void dfs(int nn, int pp, int dd, int len, vi &subtree, vvi &g)
+{
+    if (dd == len)
+    {
+        subtree[nn] = 1;
+        return;
+    }
+    for (auto v : g[nn])
+    {
+        if (v != pp)
+        {
+            dfs(v, nn, dd + 1, len, subtree, g);
+            subtree[nn] += subtree[v];
+        }
+    }
+}
 void solve()
 {
     int n;
@@ -106,47 +122,78 @@ void solve()
         g[b].pb(a);
     }
     vi dist = vi(n + 1, 1e9);
-    vi parent = vi(n + 1);
-    parent[1] = -1;
-    bfs(1, dist, g, parent);
+    vi par = vi(n + 1);
+    bfs(1, dist, g, par);
     int max1 = 1;
     for (int i = 1; i <= n; i++)
     {
         if (dist[max1] < dist[i])
+        {
             max1 = i;
+        };
     }
     for (int i = 1; i <= n; i++)
     {
         dist[i] = 1e9;
     }
-    bfs(max1, dist, g, parent);
+    bfs(max1, dist, g, par);
     int max2 = 1;
     for (int i = 1; i <= n; i++)
     {
         if (dist[max2] < dist[i])
             max2 = i;
     }
-    vi path;
-    // cout << max1 << endl;
-    // cout << max2 << endl;
+    // cout << dist[max2] << endl;
     int temp = max2;
-    // int len = 0;
+    vi ans;
     while (temp != max1)
     {
+        ans.pb(temp);
         // len++;
-        path.pb(temp);
-        temp = parent[temp];
+        temp = par[temp];
     }
-    path.pb(max1);
-    // cout << len << endl;
-    if (dist[max2] % 2 != 0)
+    int len = dist[max2];
+    if (len % 2 != 0)
     {
-        cout << -1 << endl;
+        int center1 = ans[len / 2 + 1];
+        int center2 = ans[len / 2];
+        vi subtree = vi(n + 1, 0);
+        // cout << center1 << endl;
+        int sum1 = 0;
+        // int sq_sum = 0;
+        dfs(center1, center2, 0, len / 2, subtree, g);
+        sum1 += subtree[center1];
+        // sq_sum += subtree[center1] * subtree[center1];
+        // cout << sq_sum;
+        subtree.assign(n + 1, 0);
+        dfs(center2, center1, 0, len / 2, subtree, g);
+        int sum2 = 0;
+        sum2 += subtree[center2];
+        // sq_sum += subtree[center2] * subtree[center2];
+        // cout << sum2 << endl;
+        // cout << subtree[center2] << endl;
+        int ans = sum1 * sum2;
+        cout << ans << endl;
     }
     else
     {
-        cout << path[dist[max2] / 2] << endl;
+        int center = ans[len / 2];
+        // cout << center << endl;
+        vi subtree = vi(n + 1, 0);
+        dfs(center, -1, 0, len / 2, subtree, g);
+        int sum = 0;
+        int sq_sum = 0;
+        for (auto v : g[center])
+        {
+            sum += subtree[v];
+            sq_sum += subtree[v] * subtree[v];
+        }
+        // cout << sum << endl;
+        // cout << sq_sum << endl;
+        int ans = (sum * sum - sq_sum) / 2;
+        cout << ans << endl;
     }
+    // cout << len << endl;
 }
 
 signed main()
