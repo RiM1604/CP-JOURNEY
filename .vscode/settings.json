@@ -33,6 +33,7 @@
         "initializer_list": "cpp",
         "span": "cpp",
         "valarray": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "new": "cpp"
     }
 }
