@@ -3,11 +3,11 @@
 // End Time  : 00:30:46
 // Time Taken: -1395 minutes
 // Author: RiM1604
-// QUESTION LINK:
-// Rating:
-// Description:
-// Solved:
-// Learning:
+// QUESTION LINK: https://www.hackerrank.com/contests/goc-cdc-series-27/challenges/travellers-troubles
+// Rating: Medium
+// Description: Travellers Troubles to find shortest path between x and y if one edge has its wt set to and bidirectional
+// Solved: Yes
+// Learning: If in a DG a shortest path exists in forward direction then the same path is the shortest for the reversed graph in the opposite direction, Idea here was to find the shortest distance to vertex y from i using reverse graph and doing dijkstra on y.
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>
