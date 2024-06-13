@@ -10,3 +10,4 @@ Date,Start Time,End Time,Time Taken,QUESTION LINK,Rating,Description,Solved,Lear
 12-06-2024,18:02:04,18:41:54,39 minutes,In PC,Easy,Finding the no of diameters in case of single center and two centers,Yes,Keep track of how many nodes at distance len/2 in subtree[] using dfs. Took time to debug the code and dont be too scared to write the total code sometimes.
 12-06-2024,16:39:27,17:03:01,23 minutes,In PC,Easy,Find Center of Tree,Yes,You need to find path to get the center.
 12-06-2024,16:39:27,17:47:54,68 minutes,In PC,Easy,Find Diameter of Tree,Yes,Simple diameter code using 2 bfs calls
+11-06-2024,17:40:15,18:00:12,19 minutes,...,Easy,AZ Problem,Yes,Did mistake of doing rank change and parent change on x and y instead of find(x) and find(y) should be careful to remember that x is represented by find(x)

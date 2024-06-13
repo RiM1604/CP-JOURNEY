@@ -159,6 +159,8 @@ void solve()
     // uf.merge(1, 2);
     // uf.merge(1, 4);
     // cout << uf.set_size << endl;
+    delete[] uf.rank;
+    delete[] uf.parent;
 }
 
 signed main()
