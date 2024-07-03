@@ -29,12 +29,12 @@ execute_custom_command() {
             time_diff=$((current_time - modified_time))
             # echo ${time_diff}
             # Check if more than 24 hours have passed since the last execution
-            if [ $time_diff -ge 1800 ]; then
-                echo "More than half an hour has passed since the last execution."
+            if [ $time_diff -ge 300 ]; then
+                echo "More than 5 minutes has passed since the last execution."
                 # Remove the file to allow execution again
                 rm /tmp/custom_command_executed
             else
-                echo "Less than half an hour has passed since the last execution. Skipping."
+                echo "Less than 5 minutes has passed since the last execution. Skipping."
                 return
             fi
     fi
