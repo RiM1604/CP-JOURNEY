@@ -7,7 +7,7 @@
 // Rating: Easy
 // Description: Find the order in which you need to do courses give prerequisites
 // Solved: Yes
-// Learning: 
+// Learning: Finding the round trip in a directed graph is different than in a undirected graph, using stack in directed to keep track of the nodes we have rn.
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>

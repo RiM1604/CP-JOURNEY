@@ -1,2 +1,3 @@
 Date,Start Time,End Time,Time Taken,QUESTION LINK,Rating,Description,Solved,Learning
 03-07-2024,20:02:22,20:31:07,28 minutes,https://cses.fi/problemset/task/1679,Easy,Find the order in which you need to do courses give prerequisites,Yes,
+03-07-2024,20:02:22,20:31:07,28 minutes,https://cses.fi/problemset/task/1679,Easy,Find the order in which you need to do courses give prerequisites,Yes,"Finding the round trip in a directed graph is different than in a undirected graph, using stack in directed to keep track of the nodes we have rn."
