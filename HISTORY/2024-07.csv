@@ -1,3 +1,4 @@
 Date,Start Time,End Time,Time Taken,QUESTION LINK,Rating,Description,Solved,Learning
 03-07-2024,20:02:22,20:31:07,28 minutes,https://cses.fi/problemset/task/1679,Easy,Find the order in which you need to do courses give prerequisites,Yes,
 03-07-2024,20:02:22,20:31:07,28 minutes,https://cses.fi/problemset/task/1679,Easy,Find the order in which you need to do courses give prerequisites,Yes,"Finding the round trip in a directed graph is different than in a undirected graph, using stack in directed to keep track of the nodes we have rn."
+03-07-2024,20:51:02,23:19:26,148 minutes,https://cses.fi/problemset/task/1680/,Medium,Find the longest path from 1 to n,Yes,"Used dp here to do max distance by building the dp from n to 1, note that using par[] method is diff from child[] method cause par[v]=ans[i-1] you cant be sure that the parent is of the largest path, but for child[ans[i-1]]=v you can be sure of that as you know the max val is for which child."
