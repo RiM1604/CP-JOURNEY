@@ -1,9 +1,9 @@
 // Date: 07-07-2024
 // Start Time: 18:23:09
-// End Time  : 10:45:59
-// Time Taken: -457 minutes
+// End Time  : 10:53:40
+// Time Taken: -449 minutes
 // Author: RiM1604
-// QUESTION LINK: https://codeforces.com/contest/429/problem/A
+// QUESTION LINK:
 // Rating: Easy
 // Description: Find the min no of flips where when you flip the node which you take its child flips but the child's child does not and the child's child's child flips.
 // Solved: Yes
