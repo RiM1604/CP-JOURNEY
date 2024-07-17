@@ -1,13 +1,13 @@
-// Date: 16-07-2024 
+// Date: 16-07-2024
 // Start Time: 12:48:18
-// End Time  : 
-// Time Taken: 
+// End Time  : 13:03:02
+// Time Taken: 14 minute
 // Author: RiM1604
-// QUESTION LINK: 
-// Rating: 
-// Description: 
-// Solved: 
-// Learning: 
+// QUESTION LINK: https://codeforces.com/contest/476/problem/B
+// Rating: 1300
+// Description: Find the probability such that s2 instructions end in the final pos expected by s1.
+// Solved: Yes
+// Learning: In using bitmask dp use it when it is better to store previous inputs taken or it can be solved by only storing the previous taken inputs.
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>
@@ -72,23 +72,65 @@ int bin_pow(int base, int pow)
 
 string s1, s2;
 int n;
-int rec(int i, int bitmask, int final_pos)
+int dp[11][1025];
+int final_pos = 0;
+int rec(int i, int bitmask)
 {
+    if (i == n)
+    {
+        int pos = 0;
+        int step_ahead = __builtin_popcount(bitmask);
+        int step_back = n - step_ahead;
+        pos = step_ahead - step_back;
+        if (pos == final_pos)
+        {
+            return 1;
+        }
+        return 0;
+    }
+    if (dp[i][bitmask] != -1)
+    {
+        return dp[i][bitmask];
+    }
+    int ans = 0;
+    if (s2[i] == '+')
+    {
+        ans = rec(i + 1, bitmask | 1 << n - 1 - i);
+    }
+    else if (s2[i] == '-')
+    {
+        ans = rec(i + 1, bitmask);
+    }
+    else if (s2[i] == '?')
+    {
+        ans += rec(i + 1, bitmask) + rec(i + 1, bitmask | 1 << n - 1 - i);
+    }
+    return dp[i][bitmask] = ans;
 }
 
 void solve()
 {
     cin >> s1 >> s2;
-    n = s1.length();
-    int final_pos = 0;
-    for (auto i: s1){
-        if(i=='+')
+    n = s1.size();
+    int count = 0;
+    memset(dp, -1, sizeof(dp));
+    for (auto i : s1)
+    {
+        if (i == '+')
             final_pos++;
-        if(i=='-')
+        if (i == '-')
             final_pos--;
     }
-    cout << final_pos << endl;
-    // long double ans = rec(0, 0, final_pos);
+    // cout << final_pos << endl;
+    for (auto i : s2)
+    {
+        if (i == '?')
+            count++;
+    }
+    long double ans = rec(0, 0);
+    ans = ans / pow(2, count);
+    cout << setprecision(12) << fixed;
+    cout << ans << endl;
 }
 
 signed main()
@@ -99,7 +141,7 @@ signed main()
     std::cout.tie(NULL);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
 #ifdef LOCAL
