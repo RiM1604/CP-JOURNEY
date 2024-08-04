@@ -1,0 +1,2 @@
+Date,Start Time,End Time,Time Taken,QUESTION LINK,Rating,Description,Solved,Learning
+04-08-2024,00:20:08,11:45:01,684 minutes,https://atcoder.jp/contests/abc365/tasks/abc365_e,Medium,Find the sum of xor of all subsets of the array,No,"using prefix xor to get a1, a1^a2, a1^a2^a3, a1^a2^a3^a4 from this we keep a count of the ones and zeroes for all the 30 bits and we do all combinations of the"
