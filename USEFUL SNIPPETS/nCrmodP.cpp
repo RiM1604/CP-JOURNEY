@@ -1,13 +1,3 @@
-// Date: 06-08-2024 
-// Start Time: 21:47:21
-// End Time  : 22:09:25
-// Time Taken: 22 minutes
-// Author: RiM1604
-// QUESTION LINK: 
-// Rating: 
-// Description: 
-// Solved: 
-// Learning: 
 
 /****************************************************Pre Processor***************************************************/
 #include <bits/stdc++.h>
@@ -24,7 +14,7 @@ using namespace std;
 #define pb push_back
 #define F first
 #define S second
-// #define int long long
+#define int long long
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
@@ -72,60 +62,50 @@ int bin_pow(int base, int pow)
 
 vector<int> fact;
 
-
-int power(int a, int b, int p){
+int power(int a, int b, int p)
+{
 
     int res = 1;
     while (b)
     {
-        if(b&1){
-            res = (res*a)%p;
+        if (b & 1)
+        {
+            res = (res * a) % p;
         }
-        a = (a*a)%p;
+        a = (a * a) % p;
         b >>= 1;
     }
     return res;
 }
 
-int modinverse(int n, int p){
+int modinverse(int n, int p)
+{
     return power(n, p - 2, p);
 }
 
-int ncrmodP(int n, int r,int p){
-    if(n<r){
+int ncrmodP(int n, int r, int p)
+{
+    if (n < r)
+    {
         return 0;
     }
-    if(r==0){
+    if (r == 0)
+    {
         return 1;
     }
-    return (fact[n] *( modinverse(fact[r], p) % p )* (modinverse(fact[n - r], p) % p)) % p;
+    return ((fact[n] % p * (modinverse(fact[r], p) % p)) % p * (modinverse(fact[n - r], p) % p)) % p;
 }
 
 void solve()
 {
     int n, k;
     cin >> n >> k;
-    fact=vector<int>(n+2,0);
+    fact = vector<int>(n + 2, 0);
     fact[0] = 1;
-    for (int i = 1; i <= n;i++){
-        fact[i] *= (fact[i - 1]*i)%mod;
+    for (int i = 1; i <= n; i++)
+    {
+        fact[i] = (fact[i - 1] * i) % mod;
     }
-    int zero_count = 0, one_count = 0;
-    vector<int> a(n);
-    for(auto &i: a){
-        cin >> i;
-        if(i==0){
-            zero_count++;
-        }else{
-            one_count++;
-        }
-    }
-    cout << zero_count << one_count << endl;
-    int sum = 0;
-    for (int j = (k + 1) / 2 + 1; j <= k;j++){
-        sum += ncrmodP(one_count, j,mod) * ncrmodP(zero_count, n - j,mod) %mod;
-    }
-    cout << sum << endl;
 }
 
 signed main()
